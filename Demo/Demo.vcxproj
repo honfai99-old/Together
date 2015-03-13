@@ -78,6 +78,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="bspinfo.hpp" />
+    <ClInclude Include="BSP.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BSP.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
