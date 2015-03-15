@@ -24,17 +24,17 @@ struct VECTOR3D
 #define LUMP_MODELS			14
 #define HEADER_LUMPS		15
 
+struct BSPLUMP
+{
+	int nOffset;		// the file offset to data
+	int nLength;		// the length of data
+};
+
 struct BSPHEADER
 {
 #define HL_BSP_VERSION (30)
 	int nVersion;					// must be 30 for a valid HL BSP file
 	BSPLUMP Lumps[HEADER_LUMPS];	// stores the directory of lumps
-};
-
-struct BSPLUMP
-{
-	int nOffset;		// the file offset to data
-	int nLength;		// the length of data
 };
 
 #define MAX_MAP_HULLS			4

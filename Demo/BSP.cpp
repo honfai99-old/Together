@@ -59,16 +59,16 @@ bool CBSP::LoadFromFile(const wchar_t *file_url)
 	nPlanes = AllocLump(LUMP_PLANES, &m_pPlanes);
 	nModels = AllocLump(LUMP_MODELS, &m_pModels);
 
-	ReadLump(LUMP_NODES, m_pNodes, nNodes);
-	ReadLump(LUMP_LEAVES, m_pLeaves, nLeaves);
-	ReadLump(LUMP_MARKSURFACES, m_pMarkSurfaces, nMarkSurfaces);
-	ReadLump(LUMP_FACES, m_pFaces, nFaces);
-	ReadLump(LUMP_CLIPNODES, m_pClipNodes, nClipNodes);
-	ReadLump(LUMP_SURFEDGES, m_pSurfEdges, nSurfEdges);
-	ReadLump(LUMP_EDGES, m_pEdges, nEdges);
-	ReadLump(LUMP_VERTICES, m_pVertices, nVertices);
-	ReadLump(LUMP_PLANES, m_pPlanes, nPlanes);
-	ReadLump(LUMP_MODELS, m_pModels, nModels);
+	ReadLump(bsp, LUMP_NODES, m_pNodes, nNodes);
+	ReadLump(bsp, LUMP_LEAVES, m_pLeaves, nLeaves);
+	ReadLump(bsp, LUMP_MARKSURFACES, m_pMarkSurfaces, nMarkSurfaces);
+	ReadLump(bsp, LUMP_FACES, m_pFaces, nFaces);
+	ReadLump(bsp, LUMP_CLIPNODES, m_pClipNodes, nClipNodes);
+	ReadLump(bsp, LUMP_SURFEDGES, m_pSurfEdges, nSurfEdges);
+	ReadLump(bsp, LUMP_EDGES, m_pEdges, nEdges);
+	ReadLump(bsp, LUMP_VERTICES, m_pVertices, nVertices);
+	ReadLump(bsp, LUMP_PLANES, m_pPlanes, nPlanes);
+	ReadLump(bsp, LUMP_MODELS, m_pModels, nModels);
 
 	return true;
 }
@@ -82,7 +82,7 @@ int CBSP::AllocLump(int lump_id, T **ppLump)
 }
 
 template<class T>
-void CBSP::ReadLump(int lump_id, T *pLump, int lump_count)
+void CBSP::ReadLump(std::ifstream &bsp, int lump_id, T *pLump, int lump_count)
 {
 	bsp.seekg(m_Header.Lumps[lump_id].nOffset, std::ios::beg);
 	bsp.read(reinterpret_cast<char *>(pLump), lump_count * sizeof(T));

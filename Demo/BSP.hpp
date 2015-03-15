@@ -12,7 +12,7 @@ public:
 
 private:
 	template<class T> int AllocLump(int lump_id, T **ppLump);
-	template<class T> void ReadLump(int lump_id, T *pLump, int lump_count);
+	template<class T> void ReadLump(std::ifstream &bsp, int lump_id, T *pLump, int lump_count);
 
 	template<class T> void ReleaseLump(T *&pLump);
 
