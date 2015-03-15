@@ -8,7 +8,16 @@ CBSP::CBSP()
 
 CBSP::~CBSP()
 {
-
+	ReleaseLump(m_pNodes);
+	ReleaseLump(m_pLeaves);
+	ReleaseLump(m_pMarkSurfaces);
+	ReleaseLump(m_pFaces);
+	ReleaseLump(m_pClipNodes);
+	ReleaseLump(m_pSurfEdges);
+	ReleaseLump(m_pEdges);
+	ReleaseLump(m_pVertices);
+	ReleaseLump(m_pPlanes);
+	ReleaseLump(m_pModels);
 }
 
 bool CBSP::LoadFromFile(const wchar_t *file_url)
@@ -61,8 +70,6 @@ bool CBSP::LoadFromFile(const wchar_t *file_url)
 	ReadLump(LUMP_PLANES, m_pPlanes, nPlanes);
 	ReadLump(LUMP_MODELS, m_pModels, nModels);
 
-
-
 	return true;
 }
 
@@ -79,4 +86,14 @@ void CBSP::ReadLump(int lump_id, T *pLump, int lump_count)
 {
 	bsp.seekg(m_Header.Lumps[lump_id].nOffset, std::ios::beg);
 	bsp.read(reinterpret_cast<char *>(pLump), lump_count * sizeof(T));
+}
+
+template<class T>
+void CBSP::ReleaseLump(T *&pLump)
+{
+	if (!pLump)
+		return;
+
+	delete []pLump;
+	pLump = nullptr;
 }
